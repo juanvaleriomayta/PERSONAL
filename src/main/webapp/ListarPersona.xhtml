@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:include src="RegistrarPersona.xhtml"/>
+        <ui:include src="ActualizarPersona.xhtml"/>
+        <h:form id="formListPer">
+            <p:dataTable id="dataPer"
+                         var="persona"
+                         rows="8"
+                         paginator="true" 
+                         value="#{personaC.listPersona}"
+                         rowKey="#{persona.CODPER}">
+                <f:facet name="header">
+
+                    <div>
+                        <p:commandButton value="Descargar EXCEL" ajax="false" actionListener="#{personaC.main(args)}"/>
+
+                    </div>
+                </f:facet>
+                <p:column headerText="DNI">
+                    <h:outputText value="#{persona.DNIPER}"/>
+                </p:column>
+                <p:column headerText="NOMBRES Y APELLIDOS">
+                    <h:outputText value="#{persona.NOMAPEPER}"/>
+                </p:column>
+                <p:column headerText="CORREO">
+                    <h:outputText value="#{persona.EMAPER}"/>
+                </p:column>
+                <p:column headerText="FECHA DE NACIMIENTO" >
+                    <h:outputText value="#{persona.FECNACPER}"/>  
+                </p:column>
+            </p:dataTable>
+
+            <p:contextMenu for="dataPer">
+                <p:menuitem value="Actualizar" oncomplete="PF('UpPer').show();"
+                            update="formActualizarPer" icon="ui-icon-pencil"/>
+                <p:menuitem value="Eliminar" style="color: red;"
+                            actionListener="#{empresaC.eliminarEmpresa()}"
+                            update="formListPer" icon="ui-icon-trash">
+                    <p:confirm header="Confirmación"
+                               message="¿Seguro que quieres ELIMINAR la empresa?"
+                               icon="ui-icon-alert"/>
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:remoteCommand name="ActualizarPer" ignoreAutoUpdate="true" global="true"
+                             update="formListPer"/>
+        </h:form>
+    </h:body>
+</html>
+

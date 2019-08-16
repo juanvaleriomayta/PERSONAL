@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <h:form id="formRegistrarPer">
+            <p:growl id="msg" life="1500" showDetail="true" autoUpdate="true"/>
+
+            <center>
+                <p:panel id="toggleable" header="PERSONITA" toggleable="true" toggleSpeed="500" 
+                         widgetVar="panel" class="ui-widget-header" 
+                         style="width: fit-content;margin-bottom:20px;">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="dni" value="DNI:"/>
+                        <p:inputText id="dni" value="#{personaC.persona.DNIPER}" maxlength="8" required="true" requiredMessage="INGRESE DNI">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel for="nombres" value="NOMBRES Y APELLIDOS:"/>
+                        <p:inputText id="nombres" value="#{personaC.persona.NOMAPEPER}" maxlength="50" required="true" requiredMessage="INGRESE NOMBRES Y APELLIDOS">
+                            <p:keyFilter regEx="/[a-ñ-z/A-Ñ-Z/ ]/"/>
+                        </p:inputText>
+                        <p:outputLabel for="email" value="CORREO ELECTRONICO:"/>
+                        <p:inputText id="email" value="#{personaC.persona.EMAPER}" validatorMessage="Correo invalido" maxlength="100" required="true" requiredMessage="INGRESE CORREO ELECTRONICO">
+                            <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"  />
+                        </p:inputText>
+
+                        <p:outputLabel for="fecha" value="FECHA DE NACIMIENTO:"   />
+                        <p:inputMask id="fecha" mask="99/99/9999" value="#{personaC.persona.FECNACPER}" required="true" requiredMessage="INGRESE FECHA DE NACIMIENTO"/>
+
+                        <p:commandButton id="BtnIniciarSesion" value="Registrar" 
+                                         actionListener="#{personaC.registrarPersona()}" 
+                                         update="formRegistrarPer formListPer:dataPer"/>
+                        <p:blockUI block="formRegistrarPer" trigger="BtnIniciarSesion" >
+                            <f:passThroughAttribute name="style" value="background: transparent;box-shadow: none;"/>
+
+                            Cargando.....<br/>
+                            <img src="../../Resourse/icon/loading.gif" alt="" style="width: 100px;"/>
+
+                        </p:blockUI>
+                    </h:panelGrid>
+                </p:panel>
+            </center>
+
+        </h:form>
+    </ui:composition>
+</html>
+

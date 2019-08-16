@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+        <p:dialog id="ActualizarPer"
+                  header="Actualizar Persona"
+                  widgetVar="UpPer"
+                  appendTo="@(body)"
+                  closeOnEscape="true"
+                  resizable="false"
+                  responsive="true"
+                  modal="true"  
+                  showEffect="fade"
+                  hideEffect="fade"
+                  onHide="clearPer()">
+            <h:form id="formActualizarPer">
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="DNI:"/>
+                        <p:inputText value="#{personaC.persona.DNIPER}" maxlength="8" required="true" requiredMessage="INGRESE DNI">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="NOMBRES Y APELLIDOS:"/>
+                        <p:inputText value="#{personaC.persona.NOMAPEPER}" maxlength="50" required="true" requiredMessage="INGRESE APELLIDOS">
+                            <p:keyFilter regEx="/[a-ñ-z/A-Ñ-Z/ ]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="CORREO:"/>
+                        <p:inputText value="#{personaC.persona.EMAPER}" maxlength="8" style="text-transform: uppercase" required="true" requiredMessage="INGRESE DNI">
+                            <p:keyFilter regEx="/[0-9-a-ñ-z/A-Ñ-Z-@/ ]/"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="FECHA DE NACIMIENTO:"   />
+                        <p:inputMask mask="99/99/9999" value="#{personaC.persona.FECNACPER}" />
+                </p:panelGrid>
+                <br/>
+                <p:remoteCommand name="clearPer" actionListener="#{personaC.limpiarPersona()}" immediate="true"/>
+                <p:commandButton class="btn btn-primary btn-block" value="Actualizar" 
+                                 actionListener="#{personaC.limpiarPersona()}" 
+                                 update="formActualizarPer formListPer :formRegistrarPer" 
+                                 oncomplete="formActualizarPer();handleSubmit(args,'UpPer');"/>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+
