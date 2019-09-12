@@ -14,11 +14,41 @@
         <ui:include src="RegistrarPersona.xhtml"/>
         <ui:include src="ActualizarPersona.xhtml"/>
         <h:form id="formListPer">
+            <center>
+                <label class="col-form-label">Fecha de Inicio</label>
+                <p:selectOneMenu filterMatchMode="contains" value="#{personaC.reportEstadistico}" id="oneMenuCoach" required="true" requiredMessage="Seleccione Programa">
+                    <f:selectItem itemLabel="Seleccione el rango de fecha" noSelectionOption="true"/>
+                    <f:selectItems value="#{personaC.listaReportEstadst}" 
+                                   var="report" 
+                                   itemLabel="#{report.FECINIPER}" 
+                                   itemValue="#{report.FECINIPER}" />  
+                    <p:ajax event="change" listener="#{personaC.descargarRangoFecha()}" update="formListPer"/>
+                    <p:ajax update="output1" />  
+                </p:selectOneMenu>
+                <br/>
+
+                <label class="col-form-label">Fecha de Finalización</label>
+                <p:selectOneMenu id="oneMenuCoach2" value="#{personaC.reportEstadistico}" filterMatchMode="contains" required="true" requiredMessage="Seleccione Programa">
+                    <f:selectItem itemLabel="Seleccione el rango de fecha" noSelectionOption="true"/>
+                    <f:selectItems value="#{personaC.listaReportEstadst}" 
+                                   var="report2" 
+                                   itemLabel="#{report2.FECFINPER}" 
+                                   itemValue="#{report2.FECFINPER}"/>  
+                    <p:ajax event="change" listener="#{personaC.descargarRangoFecha()}" update="formListPer"/>
+                    <p:ajax update="output1"/>  
+                </p:selectOneMenu>
+                <p:inputMask mask="99/99/9999" id="output1" class="form-control" value="#{report2.FECINIPER}">
+                    <p:ajax event="change" listener="#{personaC.descargarRangoFecha()}" update="dataPer formListPer"/> 
+                </p:inputMask>
+                
+                <p:commandButton value="aceptar"/>
+
+            </center>
             <p:dataTable id="dataPer"
                          var="persona"
                          rows="8"
                          paginator="true" 
-                         value="#{personaC.listPersona}"
+                         value="#{personaC.listaRangoFecha}"
                          rowKey="#{persona.CODPER}">
                 <f:facet name="header">
 
@@ -39,7 +69,14 @@
                 <p:column headerText="FECHA DE NACIMIENTO" >
                     <h:outputText value="#{persona.FECNACPER}"/>  
                 </p:column>
+                <p:column headerText="FECHA DE INICIO" >
+                    <h:outputText value="#{persona.FECINIPER}"/>  
+                </p:column>
+                <p:column headerText="FECHA DE FINALIZACIÓN" >
+                    <h:outputText value="#{persona.FECFINPER}"/>  
+                </p:column>
             </p:dataTable>
+
 
             <p:contextMenu for="dataPer">
                 <p:menuitem value="Actualizar" oncomplete="PF('UpPer').show();"

@@ -19,17 +19,28 @@
                             <p:keyFilter regEx="/[0-9]/"/>
                         </p:inputText>
                         <p:outputLabel for="nombres" value="NOMBRES Y APELLIDOS:"/>
-                        <p:inputText id="nombres" value="#{personaC.persona.NOMAPEPER}" maxlength="50" required="true" requiredMessage="INGRESE NOMBRES Y APELLIDOS">
+                        <p:inputText id="nombres" value="#{personaC.persona.NOMAPEPER}" maxlength="50" required="true" 
+                                     requiredMessage="INGRESE NOMBRES Y APELLIDOS">
                             <p:keyFilter regEx="/[a-ñ-z/A-Ñ-Z/ ]/"/>
                         </p:inputText>
                         <p:outputLabel for="email" value="CORREO ELECTRONICO:"/>
-                        <p:inputText id="email" value="#{personaC.persona.EMAPER}" validatorMessage="Correo invalido" maxlength="100" required="true" requiredMessage="INGRESE CORREO ELECTRONICO">
+                        <p:inputText id="email" value="#{personaC.persona.EMAPER}" validatorMessage="Correo invalido" 
+                                     maxlength="100" required="true" requiredMessage="INGRESE CORREO ELECTRONICO">
                             <f:validateRegex
                                 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"  />
                         </p:inputText>
 
                         <p:outputLabel for="fecha" value="FECHA DE NACIMIENTO:"   />
-                        <p:inputMask id="fecha" mask="99/99/9999" value="#{personaC.persona.FECNACPER}" required="true" requiredMessage="INGRESE FECHA DE NACIMIENTO"/>
+                        <p:inputMask id="fecha" mask="99/99/9999" value="#{personaC.persona.FECNACPER}" required="true" 
+                                     requiredMessage="INGRESE FECHA DE NACIMIENTO"/>
+                        
+                        <p:outputLabel for="fechaini" value="FECHA DE INICIO"   />
+                        <p:inputMask id="fechaini" mask="99/99/9999" value="#{personaC.persona.FECINIPER}" required="true" 
+                                     requiredMessage="INGRESE FECHA DE INICIO"/>
+                        
+                        <p:outputLabel for="fechafin" value="FECHA DE FINALIZACION"   />
+                        <p:inputMask id="fechafin" mask="99/99/9999" value="#{personaC.persona.FECFINPER}" required="true" 
+                                     requiredMessage="INGRESE FECHA DE FINALIZACION"/>
 
                         <p:commandButton id="BtnIniciarSesion" value="Registrar" 
                                          actionListener="#{personaC.registrarPersona()}" 

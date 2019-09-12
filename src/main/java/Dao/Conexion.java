@@ -13,10 +13,10 @@ public class Conexion {
     public void Conectar() throws Exception {
         try {
             if (cn == null) {
-//                Class.forName("oracle.jdbc.OracleDriver");
-                Class.forName("com.mysql.jdbc.Driver");
-//                cn = DriverManager.getConnection("jdbc:oracle:thin:@35.211.109.53:1521:XE", "system", "oraclejvaleriom1999");
-                cn = DriverManager.getConnection("jdbc:mysql://35.211.37.203:3306/PEOPLE", "root", "Amartepor1000A");
+                Class.forName("oracle.jdbc.OracleDriver");
+//                Class.forName("com.mysql.jdbc.Driver");
+                cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "FILTERDATE", "vallegrande2018");
+//                cn = DriverManager.getConnection("jdbc:mysql://35.211.37.203:3306/PEOPLE", "root", "Amartepor1000A");
             }
         } catch (SQLException e) {
             throw e;

@@ -10,4 +10,6 @@ public class PersonaM {
     private String NOMAPEPER; 
     private String EMAPER; 
     private String FECNACPER; 
+    private String FECINIPER; 
+    private String FECFINPER; 
 }

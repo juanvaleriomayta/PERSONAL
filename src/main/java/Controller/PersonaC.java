@@ -27,10 +27,16 @@ public class PersonaC implements Serializable {
     private PersonaM persona = new PersonaM();
     private List<PersonaM> listPersona;
 
+    private String reportEstadistico;
+    private List<PersonaM> listaReportEstadst;
+    private List<PersonaM> listaRangoFecha;
+
     @PostConstruct
     public void init() {
         try {
             listarPersona();
+            listarFech_Ini_Fin();
+            descargarRangoFecha();
         } catch (Exception e) {
         }
     }
@@ -57,7 +63,8 @@ public class PersonaC implements Serializable {
         ImplPersonaD dao;
         try {
             dao = new ImplPersonaD();
-            listPersona = dao.listarPersona();
+//            listPersona = dao.listarPersona();
+            listPersona = dao.listarFech_Ini_Fin_Rango(getReportEstadistico());
         } catch (Exception e) {
             throw e;
         }
@@ -98,13 +105,12 @@ public class PersonaC implements Serializable {
 //        reportePersona.reporteAlternancias(path, path);
 
     }
-    
+
     public void reporteAlternancias(String CIs, String CodAula) throws Exception {
 //        this.Conexion();
 
         //Metodo que crea y devuelve Excel
 //        XSSFWorkbook libro = generarReporteAlternancias(CIs, CodAula);
-
         //Creamos un respuesta HTTP
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         //Le agregamos unas definiciones: Arhivo Adjunto(Descargar) , Nombre del Archivo
@@ -114,12 +120,34 @@ public class PersonaC implements Serializable {
 
         //Escribimos el excel en el contenido de la respuesta HTTP
 //        libro.write(stream);
-
         //Guardamos
         stream.flush();
         //Cerramos
         stream.close();
         //Devolvemos la respuesta HTTP construida al navegador
         FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    /*Este metodo me permitira listar la fecha de rango de un Reporte 
+     Estadistico desde el inicio hasta el final de un programa 01/07/2019*/
+    public void listarFech_Ini_Fin() throws Exception {
+        ImplPersonaD dao;
+        try {
+            dao = new ImplPersonaD();
+            listaReportEstadst = dao.listarFech_Ini_Fin();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public void descargarRangoFecha() throws Exception {
+        ImplPersonaD dao;
+        try {
+            dao = new ImplPersonaD();
+//            ListaRangoFecha = dao.listarFech_Ini_Fin_Rango(getReportEstadistico());
+            listaRangoFecha = dao.listarFech_Ini_Fin_Rango(getReportEstadistico());
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
