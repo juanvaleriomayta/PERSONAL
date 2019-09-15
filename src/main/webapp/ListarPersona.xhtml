@@ -12,6 +12,7 @@
     <h:body>
 
         <ui:include src="RegistrarPersona.xhtml"/>
+        
         <ui:include src="ActualizarPersona.xhtml"/>
         <h:form id="formListPer">
             <center>
@@ -40,7 +41,7 @@
                 <p:inputMask mask="99/99/9999" id="output1" class="form-control" value="#{report2.FECINIPER}">
                     <p:ajax event="change" listener="#{personaC.descargarRangoFecha()}" update="dataPer formListPer"/> 
                 </p:inputMask>
-                
+
                 <p:commandButton value="aceptar"/>
 
             </center>
